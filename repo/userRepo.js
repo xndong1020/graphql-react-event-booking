@@ -8,7 +8,7 @@ const getAllUsers = async () => {
 
 const userExists = async email => {
   const user = await User.findOne({ email })
-  return !!user
+  return user
 }
 
 const createUser = async user => {

@@ -11,6 +11,7 @@ const {
   createBooking,
   cancelBooking
 } = require('../../repo/bookingRepo')
+const { login } = require('../../services/authService')
 
 const resolver = {
   events: async () => {
@@ -57,9 +58,14 @@ const resolver = {
     const newUser = await createUser({ ...args.userInput })
     return newUser
   },
-  createBooking: async args => {
+  createBooking: async (args, req) => {
+    if (!req.isAuthenticated) throw new Error('UnAuthorized request')
     const newBooking = await createBooking(args.bookingInput)
     return newBooking
+  },
+  login: async args => {
+    const token = await login(args.userInput)
+    return token
   }
 }
 

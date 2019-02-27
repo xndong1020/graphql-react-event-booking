@@ -1,6 +1,12 @@
 const { buildSchema } = require('graphql')
 
 const Schema = buildSchema(`
+type AuthInfo {
+    sub: ID!
+    email: String!
+    token: String!
+}
+
 type Booking {
     _id: ID!
     user: User!
@@ -8,6 +14,7 @@ type Booking {
     createdAt: String
     updatedAt: String
 }
+
 type Event {
     _id: ID!
     title: String!
@@ -46,6 +53,7 @@ type RootQuery {
     event(id: ID!): Event!
     users: [User!]!
     bookings(bookingInput: BookingInput!): [Booking!]
+    login(userInput: UserInput): AuthInfo!
 }
 
 type RootMutation {

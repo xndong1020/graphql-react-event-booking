@@ -1,7 +1,7 @@
 ## Step 01. Dependencies
 
 ```javascript
-npm i express body-parser express-graphql graphql
+npm i express body-parser express-graphql graphql jsonwebtoken
 ```
 
 ## Step 02. Step up dev server
@@ -367,3 +367,109 @@ result
 }
 ```
 
+## Step 05. Add login with jsonwebtoken
+1. grapghql schema
+```javascript
+type AuthInfo {
+    sub: ID!
+    email: String!
+    token: String!
+}
+
+...
+
+type RootQuery {
+    ...
+    login(userInput: UserInput): AuthInfo!
+}
+```
+
+2. resolver
+```javascript
+...
+login: async args => {
+    const token = await login(args.userInput)
+    return token
+  }
+```
+
+3. services/authService.js
+```javascript
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { userExists } = require('../repo/userRepo')
+require('dotenv').config()
+
+const login = async loginInput => {
+  const { email, password } = loginInput
+  if (!email || !password) throw new Error(`Invalid credentials`)
+
+  const userInDb = await userExists(email)
+  if (!userInDb) throw new Error(`User does not exist`)
+
+  const isPasswordMatch = await bcrypt.compare(password, userInDb.password)
+  if (!isPasswordMatch) throw new Error(`Wrong password`)
+
+  // if all good
+  const token = jwt.sign(
+    { sub: userInDb._id, email },
+    process.env.AUTH_SECRET,
+    {
+      expiresIn: '1h'
+    }
+  )
+
+  return {
+    sub: userInDb._id,
+    email,
+    token
+  }
+}
+
+module.exports = {
+  login
+}
+```
+
+4. create a auth middleware to valid authorization header. If the authorization passed, add 'isAuthenticated' and 'userId' to req
+```javascript
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+const auth = (req, res, next) => {
+  const authHeader = req.get('Authorization')
+  if (!authHeader) {
+    req.isAuthenticated = false
+    return next(new Error('No Auth header provided'))
+  }
+  const token = authHeader.split(' ')[1]
+  if (!token) {
+    req.isAuthenticated = false
+    return next(new Error('token missing'))
+  }
+
+  let decodedToken
+  try {
+    decodedToken = jwt.verify(token, process.env.AUTH_SECRET)
+  } catch (err) {
+    req.isAuthenticated = false
+    return next(err)
+  }
+
+  req.isAuthenticated = true
+  req.userId = decodedToken.sub
+  next()
+}
+
+module.exports = auth
+
+```
+
+5. sage guard your path, by checking req.isAuthenticated and/or req.userId
+```javascript
+createBooking: async (args, req) => {
+    if (!req.isAuthenticated) throw new Error('UnAuthorized request')
+    const newBooking = await createBooking(args.bookingInput)
+    return newBooking
+  }
+```
