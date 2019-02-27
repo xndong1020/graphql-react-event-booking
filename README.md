@@ -465,7 +465,7 @@ module.exports = auth
 
 ```
 
-5. sage guard your path, by checking req.isAuthenticated and/or req.userId
+5. Guard your path, by checking req.isAuthenticated and/or req.userId
 ```javascript
 createBooking: async (args, req) => {
     if (!req.isAuthenticated) throw new Error('UnAuthorized request')
