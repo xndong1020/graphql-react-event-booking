@@ -6,6 +6,11 @@ const {
   deleteEvent
 } = require('../../repo/eventRepo')
 const { getAllUsers, userExists, createUser } = require('../../repo/userRepo')
+const {
+  getBooking,
+  createBooking,
+  cancelBooking
+} = require('../../repo/bookingRepo')
 
 const resolver = {
   events: async () => {
@@ -20,6 +25,10 @@ const resolver = {
   users: async () => {
     const users = await getAllUsers()
     return users
+  },
+  bookings: async args => {
+    const booking = await getBooking(args.bookingInput)
+    return booking
   },
   createEvent: async args => {
     const event = {
@@ -47,6 +56,10 @@ const resolver = {
     if (isUserExists) throw new Error('User already exists!')
     const newUser = await createUser({ ...args.userInput })
     return newUser
+  },
+  createBooking: async args => {
+    const newBooking = await createBooking(args.bookingInput)
+    return newBooking
   }
 }
 
