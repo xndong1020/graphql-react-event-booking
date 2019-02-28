@@ -1,7 +1,10 @@
 import React from 'react'
-
 const AuthPage = () => {
-  return <h1>AuthPage</h1>
+  return (
+    <React.Fragment>
+      <h1>AuthPage</h1>
+    </React.Fragment>
+  )
 }
 
 export default AuthPage
