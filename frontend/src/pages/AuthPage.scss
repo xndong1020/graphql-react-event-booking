@@ -10,6 +10,7 @@ body {
     align-items: center;
 
     form {
+      width: 30%;
       margin: 0 auto;
       padding-top: 2em;
 
@@ -21,6 +22,7 @@ body {
       }
 
       .form-group {
+        width: 100%;
         display: block;
         font-size: 1.2em;
         color: white;
@@ -34,8 +36,8 @@ body {
         input[type='password'] {
           display: block;
           border: none;
-          width: 15em;
-          padding: 0.4em 0;
+          width: 100%;
+          padding: 0.8em 0;
         }
       }
 
