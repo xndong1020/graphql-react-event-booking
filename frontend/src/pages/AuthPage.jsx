@@ -1,9 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react'
+import './AuthPage.scss'
+
 const AuthPage = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleInputChange = event => {
+    const { name, value } = event.target
+    switch (name) {
+      case 'email':
+        setEmail(value)
+        break
+      case 'password':
+        setPassword(value)
+        break
+      default:
+        break
+    }
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    console.log('on submit', {
+      email,
+      password
+    })
+  }
+
   return (
-    <React.Fragment>
-      <h1>AuthPage</h1>
-    </React.Fragment>
+    <div className="form-container">
+      <form className="form">
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={handleInputChange}
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={handleInputChange}
+            className="form-control"
+          />
+        </div>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
   )
 }
 
