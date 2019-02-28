@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 import './AuthPage.scss'
 
 const AuthPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const { login, errorMessage } = useContext(AuthContext)
 
   const handleInputChange = event => {
     const { name, value } = event.target
@@ -21,7 +24,7 @@ const AuthPage = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log('on submit', {
+    login({
       email,
       password
     })
@@ -30,6 +33,7 @@ const AuthPage = () => {
   return (
     <div className="form-container">
       <form className="form">
+        {errorMessage && <div className="errorMsg">{errorMessage}</div>}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input

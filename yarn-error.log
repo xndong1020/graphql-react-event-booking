@@ -1,0 +1,52 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add dotenv
+
+PATH: 
+  C:\Users\Jeremy\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Jeremy\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\ProgramData\Oracle\Java\javapath;C:\ProgramData\Boxstarter;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\MongoDB\Server\3.6\bin;C:\Program Files (x86)\Yarn\bin;C:\Python36\Scripts;C:\Python36;C:\Python37\Scripts;C:\Python37;C:\Users\Jeremy\AppData\Local\Microsoft\WindowsApps;C:\Users\Jeremy\AppData\Roaming\npm;C:\Users\Jeremy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\PyCharm 2018.3\bin;C:\Program Files\JetBrains\WebStorm 2018.3\bin;C:\Users\Jeremy\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2018.3.2\bin;C:\Users\Jeremy\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  11.3.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\react-projects\graphql-react-event-booking\node_modules\bcrypt\lib\binding\bcrypt_lib.node'
+
+npm manifest: 
+  {
+    "name": "graphql-react-event-booking",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "nodemon app.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "bcrypt": "^3.0.4",
+      "bluebird": "^3.5.3",
+      "body-parser": "^1.18.3",
+      "dotenv": "^6.2.0",
+      "express": "^4.16.4",
+      "express-graphql": "^0.7.1",
+      "graphql": "^14.1.1",
+      "jsonwebtoken": "^8.5.0",
+      "luxon": "^1.11.3",
+      "mongoose": "^5.4.15"
+    },
+    "devDependencies": {
+      "nodemon": "^1.18.10"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

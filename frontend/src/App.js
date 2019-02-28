@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import DefaultLayout from './layouts/DefaultLayout'
+import { AuthProvider } from './contexts/AuthContext'
 import './App.scss'
 
 class App extends Component {
@@ -8,9 +9,11 @@ class App extends Component {
     return (
       <React.Fragment>
         <BrowserRouter>
-          <Switch>
-            <Route component={DefaultLayout} />
-          </Switch>
+          <AuthProvider>
+            <Switch>
+              <Route component={DefaultLayout} />
+            </Switch>
+          </AuthProvider>
         </BrowserRouter>
       </React.Fragment>
     )

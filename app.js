@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const graphqlHttp = require('express-graphql')
+const cors = require('cors')
 const authMiddleware = require('./middlewares/auth')
 const graghqlSchema = require('./grapghql/Schema')
 const graghqlResolver = require('./grapghql/Resolver')
@@ -10,7 +11,8 @@ require('./db')
 const server = express()
 
 server.use(bodyParser.json())
-server.use(authMiddleware)
+server.use(cors())
+// server.use(authMiddleware)
 
 server.use(
   '/graphql',
@@ -21,6 +23,6 @@ server.use(
   })
 )
 
-server.listen(3000, () => {
-  console.log(`Server is listening on port 3000`)
+server.listen(4000, () => {
+  console.log(`Server is listening on port 4000`)
 })
