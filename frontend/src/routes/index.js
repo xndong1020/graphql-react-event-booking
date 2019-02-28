@@ -1,12 +1,14 @@
-import AuthPage from '../pages/AuthPage'
+import LoginPage from '../pages/LoginPage'
+import RegisterPage from '../pages/RegisterPage'
 import BookingsPage from '../pages/BookingsPage'
 import EventsPage from '../pages/EventsPage'
 import NotFoundPage from '../pages/NotFoundPage'
 
 const indexRoutes = [
   { redirect: true, name: 'home', from: '/', to: '/auth' },
-  { path: '/auth', name: 'auth', component: AuthPage },
-  { path: '/bookings', name: 'auth', component: BookingsPage },
+  { path: '/login', name: 'login', component: LoginPage },
+  { path: '/register', name: 'register', component: RegisterPage },
+  { path: '/bookings', name: 'bookings', component: BookingsPage },
   { path: '/events', name: 'auth', component: EventsPage },
   {
     catch: true,
