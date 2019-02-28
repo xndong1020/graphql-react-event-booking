@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import DefaultLayout from './layouts/DefaultLayout'
-import './App.css'
+import './App.scss'
 
 class App extends Component {
   render() {

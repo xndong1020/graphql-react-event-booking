@@ -1,0 +1,40 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  background: #242424;
+
+  .main-navigation__logo {
+    font-size: 1.2em;
+    color: orange;
+  }
+
+  .main-navigation__item {
+    flex-basis: 20rem;
+
+    ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      li {
+        list-style-type: none;
+
+        a {
+          text-decoration: none;
+          color: white;
+        }
+
+        a[aria-current='page'],
+        a:hover {
+          color: orange;
+        }
+      }
+    }
+  }
+}

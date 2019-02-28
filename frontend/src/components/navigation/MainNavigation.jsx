@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import './MainNavigation.css'
+import './MainNavigation.scss'
 
 const MainNavigation = () => {
   return (
