@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import axios from '../helpers/axios.instance'
 import QueryFactory from '../factories/queryFactory'
 
 const AuthContext = React.createContext()
 
 const AuthProvider = props => {
+  const { history } = props
   const [isLoading, setIsLoading] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -23,6 +25,7 @@ const AuthProvider = props => {
       localStorage.setItem('sub', sub)
       setIsLoading(false)
       setIsAuthenticated(true)
+      history.push('/events')
     } catch (err) {
       setIsLoading(false)
       setErrorMessage('Invalid credentials')
@@ -32,7 +35,6 @@ const AuthProvider = props => {
 
   const register = async ({ email, password }) => {
     try {
-      console.log('props', props)
       setErrorMessage('')
       setIsLoading(true)
       await axios.post(
@@ -40,9 +42,8 @@ const AuthProvider = props => {
         new QueryFactory().build('register', { email, password }).stringify()
       )
       // console.log('register', result.data.data.createUser)
-      window.location.href = 'login'
       setIsLoading(false)
-      setIsAuthenticated(true)
+      history.push('/login')
     } catch (err) {
       setIsLoading(false)
       setErrorMessage('Invalid credentials')
@@ -73,6 +74,7 @@ const AuthProvider = props => {
   )
 }
 
+const AuthProviderWithRouter = withRouter(AuthProvider)
 const AuthConsumer = AuthContext.Consumer
 
-export { AuthContext, AuthProvider, AuthConsumer }
+export { AuthContext, AuthProviderWithRouter as AuthProvider, AuthConsumer }
