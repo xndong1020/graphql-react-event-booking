@@ -3,12 +3,30 @@ import { withRouter } from 'react-router-dom'
 import axios from '../helpers/axios.instance'
 import QueryFactory from '../factories/queryFactory'
 
+const loadInitialState = () => {
+  const sub = localStorage.getItem('sub')
+  const token = localStorage.getItem('token')
+
+  if (sub && token) {
+    return {
+      accessToken: token,
+      userId: sub,
+      isAuth: true
+    }
+  }
+  return {}
+}
+
 const AuthContext = React.createContext()
 
 const AuthProvider = props => {
   const { history } = props
+  const { accessToken, userId, isAuth } = loadInitialState()
+
   const [isLoading, setIsLoading] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(isAuth)
+  const [token, setToken] = useState(accessToken)
+  const [sub, setSub] = useState(userId)
   const [errorMessage, setErrorMessage] = useState('')
 
   const login = async ({ email, password }) => {
@@ -20,9 +38,11 @@ const AuthProvider = props => {
         new QueryFactory().build('login', { email, password }).stringify()
       )
       // console.log('login', result.data.data.login)
-      const { sub, token } = result.data.data.login
-      localStorage.setItem('token', token)
-      localStorage.setItem('sub', sub)
+      const { login } = result.data.data
+      setToken(login.token)
+      setSub(login.sub)
+      localStorage.setItem('token', login.token)
+      localStorage.setItem('sub', login.sub)
       setIsLoading(false)
       setIsAuthenticated(true)
       history.push('/events')
@@ -52,6 +72,8 @@ const AuthProvider = props => {
   }
 
   const logout = () => {
+    setToken('')
+    setSub('')
     localStorage.removeItem('token')
     localStorage.removeItem('sub')
     setIsAuthenticated(false)
@@ -64,6 +86,8 @@ const AuthProvider = props => {
         isAuthenticated,
         errorMessage,
         setErrorMessage,
+        sub,
+        token,
         login,
         logout,
         register
